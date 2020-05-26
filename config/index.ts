@@ -25,6 +25,15 @@ export const { ENV = ENVS.dev } = environemt;
 // Application port
 export const PORT = Number(environemt.PORT) || 9922;
 
+// Server messages
+export const SERVER_MESSAGES = {
+  accessDenied: 'ACCESS_DENIED',
+  internalServerError: 'INTERNAL_SERVER_ERROR',
+  missingToken: 'MISSING_TOKEN',
+  noAdditionalInformation: 'NO_ADDITIONAL_INFORMATION',
+  ok: 'OK',
+};
+
 // Tokens
 export const TOKENS = {
   access: {

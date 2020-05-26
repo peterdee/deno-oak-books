@@ -1,10 +1,6 @@
-export interface Password {
-  _id: {
-    $oid: string;
-  };
-  entity: 'Password';
-  created: string;
+import { Generic } from './Generic.interface.ts';
+
+export interface Password extends Generic<'Password'> {
   hash: string;
   userId: string;
-  updated: string;
 };
