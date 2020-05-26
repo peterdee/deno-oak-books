@@ -1,11 +1,7 @@
-export interface User {
-  _id: {
-    $oid: string;
-  };
-  entity: 'User';
-  created: string;
+import { Generic } from './Generic.interface.ts';
+
+export interface User extends Generic<'User'> {
   email: string;
   firstName: string;
   lastName: string;
-  updated: string;
 };

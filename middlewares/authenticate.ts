@@ -1,7 +1,9 @@
+import { Status } from 'https://deno.land/std/http/http_status.ts';
 import { validateJwt } from 'https://deno.land/x/djwt/validate.ts';
 
 import database, { User } from '../database/index.ts';
-import { TOKENS } from '../config/index.ts';
+import response from '../utilities/response.ts';
+import { SERVER_MESSAGES, TOKENS } from '../config/index.ts';
 
 /**
  * Authenticate the user
@@ -14,7 +16,7 @@ export default async function (ctx: any, next: any): Promise<void> {
     // check the token
     const { request: { headers: { 'x-access-token': token = '' } = {} } = {} } = ctx;
     if (!token) {
-      // return 401
+      return response(ctx, Status.Unauthorized, SERVER_MESSAGES.missingToken);
     }
 
     const decoded = await validateJwt(token, TOKENS.access.secret, { isThrowing: true });
@@ -30,13 +32,15 @@ export default async function (ctx: any, next: any): Promise<void> {
     });
 
     if (!user) {
-      // return 401
+      return response(ctx, Status.Unauthorized, SERVER_MESSAGES.accessDenied);
     }
 
     // continue
     ctx.id = decoded.id;
     return next();
   } catch (error) {
-    // TODO: return 401
+    // TODO: check if the error is caused by the token expiration
+
+    return response(ctx, Status.Unauthorized, SERVER_MESSAGES.accessDenied);
   }
 }
