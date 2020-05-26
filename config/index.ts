@@ -24,3 +24,15 @@ export const { ENV = ENVS.dev } = environemt;
 
 // Application port
 export const PORT = Number(environemt.PORT) || 9922;
+
+// Tokens
+export const TOKENS = {
+  access: {
+    expiration: Number(environemt.ACCESS_TOKEN_EXPIRATION) || 86000,
+    secret: environemt.ACCESS_TOKEN_SECRET || 'secrets-ghosts',
+  },
+  refresh: {
+    expiration: Number(environemt.REFRESH_TOKEN_EXPIRATION) || 600000,
+    secret: environemt.REFRESH_TOKEN_SECRET || 'secrets-wenches',
+  },
+}
