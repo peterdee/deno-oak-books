@@ -7,6 +7,8 @@ import log from './utilities/log.ts';
 import logger from './middlewares/logger.ts';
 import responseTime from './middlewares/response-time.ts';
 
+import index from './apis/index/index.ts';
+
 const app = new oak.Application();
 
 const snelm = new Snelm('oak');
@@ -22,9 +24,7 @@ app.use(logger);
 app.use(responseTime);
 
 // routing
-app.use((ctx: oak.Context) => {
-  ctx.response.body = "Hello World!";
-});
+app.use(index.routes());
 
 log(`-- DENO + OAK is running on ${port} [${ENV.toUpperCase()}]`);
 app.listen({

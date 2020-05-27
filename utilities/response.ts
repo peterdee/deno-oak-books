@@ -24,7 +24,7 @@ export default function (
     datetime: Date.now(),
     info,
     misc,
-    request: `${ctx.originalUrl} [${ctx.method}]`,
+    request: `${ctx.request.url} [${ctx.request.method}]`,
     status,
   };
   if (data) {
@@ -32,7 +32,7 @@ export default function (
   }
 
   // send response
-  ctx.status = status;
-  ctx.body = response;
+  ctx.response.status = status;
+  ctx.response.body = response;
   return ctx.body;
 };
