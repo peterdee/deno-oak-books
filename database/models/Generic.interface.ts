@@ -1,8 +1,8 @@
-export interface Generic<T> {
+export interface Generic {
   _id: {
     $oid: string;
   };
-  entity: T;
   created: string;
+  entity: string;
   updated: string;
 };
