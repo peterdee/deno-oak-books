@@ -29,6 +29,7 @@ export const PORT = Number(environemt.PORT) || 9922;
 export const SERVER_MESSAGES = {
   accessDenied: 'ACCESS_DENIED',
   internalServerError: 'INTERNAL_SERVER_ERROR',
+  missingData: 'MISSING_DATA',
   missingToken: 'MISSING_TOKEN',
   noAdditionalInformation: 'NO_ADDITIONAL_INFORMATION',
   ok: 'OK',
