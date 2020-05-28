@@ -8,6 +8,7 @@ import logger from './middlewares/logger.ts';
 import responseTime from './middlewares/response-time.ts';
 
 import index from './apis/index/index.ts';
+import login from './apis/login/index.ts';
 
 const app = new oak.Application();
 
@@ -16,7 +17,7 @@ await snelm.init();
 
 // middlewares
 app.use(oakCors());
-app.use((ctx, next) => {
+app.use((ctx: oak.Context, next) => {
   ctx.response = snelm.snelm(ctx.request, ctx.response);
   return next();
 });
@@ -25,6 +26,7 @@ app.use(responseTime);
 
 // routing
 app.use(index.routes());
+app.use(login.routes());
 
 log(`-- DENO + OAK is running on ${port} [${ENV.toUpperCase()}]`);
 app.listen({
