@@ -8,7 +8,7 @@ import database, {
 import generateTokens from '../../utilities/generate-tokens.ts';
 import response from '../../utilities/response.ts';
 import { SERVER_MESSAGES } from '../../config/index.ts';
-import { Tokens } from '../../utilities/types.ts';
+import { TokenPair } from '../../utilities/types.ts';
 
 /**
  * Handle the Login route
@@ -17,13 +17,16 @@ import { Tokens } from '../../utilities/types.ts';
  */
 export default async function (ctx: Context): Promise<void> {
   try {
+    const x = await ctx.request.body();
+    console.log(x, x.type, x.value)
+
     // check data
     const {
       value: {
         email = '',
         password = '',
       }
-    } = await ctx.request.body();
+    } = await ctx.request.body({ });
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
     if (!(trimmedEmail && trimmedPassword)) {
@@ -55,7 +58,7 @@ export default async function (ctx: Context): Promise<void> {
     }
 
     // generate the tokens
-    const tokens: Tokens = generateTokens(userRecord._id['$oid']);
+    const tokens: TokenPair = generateTokens(userRecord._id['$oid']);
 
     return response(ctx, Status.OK, SERVER_MESSAGES.ok, tokens);
   } catch (error) {

@@ -1,34 +1,47 @@
-import { makeJwt, setExpiration } from 'https://deno.land/x/djwt/create.ts';
+import {
+  Jose,
+  JwtInput,
+  makeJwt,
+  Payload,
+  setExpiration,
+} from 'https://deno.land/x/djwt/create.ts';
 
-import { TokenHeader, TokenPayload, Tokens } from './types.ts';
+import { TokenPair } from './types.ts';
 import { TOKENS } from '../config/index.ts';
 
-class TokenData {
-  public header: TokenHeader;
-  public key: string;
-  public payload: TokenPayload;
+/**
+ * Create a token object for the JWT module
+ * @param {string} id - User ID
+ * @param {number} expiration - token expiration
+ * @param {string} secret - token secret
+ * @returns {JwtInput}
+ */
+const token = (id: string, expiration: number, secret: string): JwtInput => {
+  const header: Jose = {
+    alg: 'HS256' as const,
+    typ: 'JWT',
+  };
+  const payload: Payload = {
+    exp: setExpiration(Date.now() + (expiration * 1000)),
+    iss: id,
+  };
 
-  constructor(id: number|string, expiration: number, secret: string) {
-    this.header = {
-      alg: 'HS256',
-      typ: 'JWT',
-    };
-    this.key = secret;
-    this.payload = {
-      exp: setExpiration(Date.now() + (expiration * 1000)),
-      iss: id,
-    };
-  }
-}
+  return {
+    header,
+    key: secret,
+    payload,
+  };
+};
+
 
 /**
  * Generate tokens
- * @param {number|string} id - User ID
+ * @param {string} id - User ID
  * @returns {Tokens} 
  */
-export default function (id: number|string): Tokens {
+export default function (id: string): TokenPair {
   return {
-    access: makeJwt(new TokenData(id, TOKENS.access.expiration, TOKENS.access.secret)),
-    refresh: makeJwt(new TokenData(id, TOKENS.refresh.expiration, TOKENS.refresh.secret)),
+    access: makeJwt(token(id, TOKENS.access.expiration, TOKENS.access.secret)),
+    refresh: makeJwt(token(id, TOKENS.refresh.expiration, TOKENS.refresh.secret)),
   };
 }
