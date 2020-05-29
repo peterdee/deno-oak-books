@@ -1,4 +1,4 @@
-import { Status } from 'https://deno.land/std/http/http_status.ts';
+import { Status } from 'https://deno.land/x/oak/mod.ts';
 import { validateJwt } from 'https://deno.land/x/djwt/validate.ts';
 
 import database, { User } from '../database/index.ts';
@@ -7,7 +7,7 @@ import { SERVER_MESSAGES, TOKENS } from '../config/index.ts';
 
 /**
  * Authenticate the user
- * @param {Context} ctx - Oak Context
+ * @param {RouterContext} ctx - context
  * @param {*} next - call the next middleware
  * @returns {Promise<void>}
  */

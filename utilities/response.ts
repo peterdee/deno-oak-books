@@ -1,11 +1,12 @@
-import { Status } from 'https://deno.land/std/http/http_status.ts';
+import { RouterContext, Status } from 'https://deno.land/x/oak/mod.ts';
 
+import log from './log.ts';
 import { Response } from './types.ts';
 import { SERVER_MESSAGES } from '../config/index.ts';
 
 /**
  * Send response to the frontend
- * @param {Context} ctx - Oak Context
+ * @param {RouterContext} ctx - context
  * @param {number} status - response status
  * @param {string} info - response info
  * @param {*} data - data object (optional)
@@ -13,7 +14,7 @@ import { SERVER_MESSAGES } from '../config/index.ts';
  * @returns {void} 
  */
 export default function (
-  ctx: any,
+  ctx: RouterContext,
   status: number = Status.OK,
   info: string = SERVER_MESSAGES.ok,
   data: any = null,
@@ -28,11 +29,15 @@ export default function (
     status,
   };
   if (data) {
-    response.data = data;
+    if (info !== SERVER_MESSAGES.internalServerError) {
+      response.data = data;
+    } else {
+      log(`-- INTERNAL SERVER ERROR: ${data}`, null, true);
+    }
   }
 
   // send response
   ctx.response.status = status;
   ctx.response.body = response;
-  return ctx.body;
+  return ctx.response.body;
 };

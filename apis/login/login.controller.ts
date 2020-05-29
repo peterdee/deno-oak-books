@@ -1,32 +1,26 @@
 import { compare } from 'https://deno.land/x/bcrypt/mod.ts';
-import { Context, Status } from 'https://deno.land/x/oak/mod.ts';
+import { RouterContext, Status } from 'https://deno.land/x/oak/mod.ts';
 
+import bodyParser from '../../utilities/body-parser.ts';
 import database, {
   Password as PasswordInterface,
   User as UserInterface,
 } from '../../database/index.ts';
 import generateTokens from '../../utilities/generate-tokens.ts';
+import { LoginData } from './types.ts';
 import response from '../../utilities/response.ts';
 import { SERVER_MESSAGES } from '../../config/index.ts';
 import { TokenPair } from '../../utilities/types.ts';
 
 /**
  * Handle the Login route
- * @param {Context} ctx - request context
+ * @param {RouterContext} ctx - request context
  * @returns {Promise<void>}
  */
-export default async function (ctx: Context): Promise<void> {
+export default async function (ctx: RouterContext): Promise<void> {
   try {
-    const x = await ctx.request.body();
-    console.log(x, x.type, x.value)
-
     // check data
-    const {
-      value: {
-        email = '',
-        password = '',
-      }
-    } = await ctx.request.body({ });
+    const { email = '', password = '' }: LoginData = await bodyParser(ctx, ['email', 'password']);
     const trimmedEmail = email.trim();
     const trimmedPassword = password.trim();
     if (!(trimmedEmail && trimmedPassword)) {
@@ -62,6 +56,11 @@ export default async function (ctx: Context): Promise<void> {
 
     return response(ctx, Status.OK, SERVER_MESSAGES.ok, tokens);
   } catch (error) {
-    return response(ctx, Status.InternalServerError, SERVER_MESSAGES.internalServerError);
+    return response(
+      ctx,
+      Status.InternalServerError,
+      SERVER_MESSAGES.internalServerError,
+      error,
+    );
   }
 };
