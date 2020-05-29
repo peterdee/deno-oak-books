@@ -2,6 +2,20 @@ import 'https://deno.land/x/denv/mod.ts';
 
 export const environemt = Deno.env.toObject();
 
+// Available account types
+export const ACCOUNT_TYPES = {
+  admin: 'admin',
+  user: 'user',
+};
+
+// Admin data
+export const ADMIN = {
+  email: environemt.ADMIN_EMAIL,
+  firstName: environemt.ADMIN_FIRST_NAME,
+  lastName: environemt.ADMIN_LAST_NAME,
+  password: environemt.ADMIN_PASSWORD,
+};
+
 // Database connection
 export const DATABASE = {
   host: environemt.DB_HOST || 'localhost',

@@ -7,17 +7,7 @@ export interface Response {
   status: number;
 };
 
-export interface TokenHeader {
-  alg: string;
-  typ: string;
-};
-
-export interface TokenPayload {
-  exp: number|string;
-  iss: number|string;
-};
-
-export interface Tokens {
+export interface TokenPair {
   access: string;
   refresh: string;
 };
