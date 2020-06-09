@@ -1,6 +1,6 @@
 /**
  * Response time middleware
- * @param {Context} ctx - Oak Context
+ * @param {RouterContext} ctx - context
  * @param {*} next - call the next middleware
  */
 export default async function (ctx: any, next: any) {

@@ -79,7 +79,12 @@ export default async (ctx: RouterContext, fields: string[]) => {
     // decode the URI
     const decoded = decodeURIComponent(bodyText);
 
-    return parseRecursively(decoded, unique);
+    // check if this is a JSON string
+    try {
+      return JSON.parse(decoded);
+    } catch {
+      return parseRecursively(decoded, unique);
+    }
   } catch (error) {
     throw error;
   }

@@ -9,20 +9,24 @@ import database, {
 import generateTokens from '../../utilities/generate-tokens.ts';
 import { LoginData } from './types.ts';
 import response from '../../utilities/response.ts';
+import sanitize from '../../utilities/sanitize.ts';
 import { SERVER_MESSAGES } from '../../config/index.ts';
 import { TokenPair } from '../../utilities/types.ts';
 
 /**
  * Handle the Login route
- * @param {RouterContext} ctx - request context
+ * @param {RouterContext} ctx - context
  * @returns {Promise<void>}
  */
 export default async function (ctx: RouterContext): Promise<void> {
   try {
     // check data
-    const { email = '', password = '' }: LoginData = await bodyParser(ctx, ['email', 'password']);
-    const trimmedEmail = email.trim();
-    const trimmedPassword = password.trim();
+    const {
+      email = '',
+      password = '',
+    }: LoginData = await bodyParser(ctx, ['email', 'password']);
+    const trimmedEmail = sanitize(email.trim());
+    const trimmedPassword = sanitize(password.trim());
     if (!(trimmedEmail && trimmedPassword)) {
       return response(ctx, Status.BadRequest, SERVER_MESSAGES.missingData);
     }
