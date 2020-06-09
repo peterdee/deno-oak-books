@@ -8,7 +8,7 @@ import {
 
 /**
  * Logger middleware
- * @param {Context} ctx - Oak Context
+ * @param {RouterContext} ctx - context
  * @param {*} next - call the next middleware
  * @returns {Promise<void>}
  */

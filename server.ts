@@ -9,6 +9,7 @@ import responseTime from './middlewares/response-time.ts';
 
 import index from './apis/index/index.ts';
 import login from './apis/login/index.ts';
+import registration from './apis/registration/index.ts';
 
 const app = new oak.Application();
 
@@ -27,6 +28,7 @@ app.use(responseTime);
 // routing
 app.use(index.routes());
 app.use(login.routes());
+app.use(registration.routes());
 
 log(`-- DENO + OAK is running on ${port} [${ENV.toUpperCase()}]`);
 app.listen({

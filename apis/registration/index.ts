@@ -1,8 +1,8 @@
 import { Router } from 'https://deno.land/x/oak/mod.ts';
 
-import controller from './login.controller.ts';
+import controller from './registration.controller.ts';
 
 const router = new Router({ prefix: '/api' });
-router.post('/login', controller);
+router.post('/registration', controller);
 
 export default router;

@@ -1,4 +1,4 @@
-import { init, MongoClient } from 'https://deno.land/x/mongo@v0.6.0/mod.ts';
+import { init, MongoClient } from 'https://deno.land/x/mongo@v0.8.0/mod.ts';
 
 import { DATABASE as DB } from '../config/index.ts';
 
@@ -10,7 +10,7 @@ export const collections = {
   User: 'User',
 };
 
-await init();
+// await init();
 
 class Database {
   public client: MongoClient;

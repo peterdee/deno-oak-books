@@ -1,5 +1,5 @@
 # Deno plugins
-/.deno_plugins
+.deno_plugins/
 
 # Environemnt variables
 .env

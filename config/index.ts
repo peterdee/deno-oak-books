@@ -42,6 +42,7 @@ export const PORT = Number(environemt.PORT) || 9922;
 // Server messages
 export const SERVER_MESSAGES = {
   accessDenied: 'ACCESS_DENIED',
+  emailIsAlreadyInUse: 'EMAIL_IS_ALREADY_IN_USE',
   internalServerError: 'INTERNAL_SERVER_ERROR',
   missingData: 'MISSING_DATA',
   missingToken: 'MISSING_TOKEN',
