@@ -36,8 +36,14 @@ export const ENVS = {
 // Application ENV
 export const { ENV = ENVS.dev } = environemt;
 
+// The 'from' field for mailer module
+export const MAILER_FROM = environemt.MAILER_FROM || 'user@host.com'
+
 // Application port
 export const PORT = Number(environemt.PORT) || 9922;
+
+// SendGrid API key
+export const SENDGRID_KEY = environemt.SENDGRID_KEY || '';
 
 // Server messages
 export const SERVER_MESSAGES = {

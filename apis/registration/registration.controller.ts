@@ -6,7 +6,6 @@ import bodyParser from '../../utilities/body-parser.ts';
 import database, {
   collections,
   NewRecord,
-  Password as PasswordInterface,
   User as UserInterface,
 } from '../../database/index.ts';
 import generateTokens from '../../utilities/generate-tokens.ts';
