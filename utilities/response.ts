@@ -1,8 +1,10 @@
 import { RouterContext, Status } from 'https://deno.land/x/oak/mod.ts';
 
+import { internalServerError } from './templates.ts';
 import log from './log.ts';
+import mailer from './mailer.ts';
 import { Response } from './types.ts';
-import { SERVER_MESSAGES } from '../config/index.ts';
+import { MAILER_FROM, SERVER_MESSAGES } from '../config/index.ts';
 
 /**
  * Send response to the frontend
@@ -32,6 +34,8 @@ export default function (
     if (info !== SERVER_MESSAGES.internalServerError) {
       response.data = data;
     } else {
+      const { template, topic } = internalServerError(data);
+      mailer(MAILER_FROM, template, topic);
       log(`-- INTERNAL SERVER ERROR: ${data}`, null, true);
     }
   }
