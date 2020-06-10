@@ -1,3 +1,9 @@
+export interface InternalErrorTemplate {
+  template: string;
+  topic: string;
+};
+
+
 export interface Response {
   data?: any;
   datetime: number;
