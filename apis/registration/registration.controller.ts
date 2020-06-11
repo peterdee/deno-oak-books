@@ -59,6 +59,7 @@ export default async function (ctx: RouterContext): Promise<void> {
         email: trimmedEmail,
         entity: collections.User,
         firstName: trimmedFirstName,
+        id: 'asd123',
         lastName: trimmedLastName,
         updated: `${now}`,
       }),
@@ -71,7 +72,7 @@ export default async function (ctx: RouterContext): Promise<void> {
       entity: collections.Password,
       hash: hashed,
       updated: `${now}`,
-      userId: userRecord['$oid'],
+      userId: 'asd123',
     });
 
     // generate the tokens

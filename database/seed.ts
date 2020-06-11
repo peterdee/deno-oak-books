@@ -3,9 +3,9 @@ import { hash } from 'https://deno.land/x/bcrypt/mod.ts';
 import { ACCOUNT_TYPES, ADMIN } from '../config/index.ts';
 import database, {
   collections,
-  NewRecord,
   User,
 } from './index.ts';
+import generateId from '../utilities/generate-id.ts';
 import log from '../utilities/log.ts';
 
 /**
@@ -24,8 +24,11 @@ import log from '../utilities/log.ts';
 
     // create the Admin record
     const now = Date.now();
-    const [admin, hashed]: [NewRecord, string] = await Promise.all([
+    const userId = generateId();
+    const [hashed] = await Promise.all([
+      hash(ADMIN.password),
       User.insertOne({
+        id: userId,
         accountType: ACCOUNT_TYPES.admin,
         created: `${now}`,
         email: ADMIN.email,
@@ -34,19 +37,20 @@ import log from '../utilities/log.ts';
         lastName: ADMIN.lastName,
         updated: `${now}`,
       }),
-      hash(ADMIN.password),
     ]);
 
     // create the Password record
     const Password = database.collection(collections.Password);
+    const passwordId = generateId();
     await Password.insertOne({
       created: `${now}`,
       entity: collections.Password,
       hash: hashed,
+      id: passwordId,
       updated: `${now}`,
-      userId: admin['$oid'],
+      userId,
     });
-    
+
     log('-- seeding: done');
     return Deno.exit(0);
   } catch (error) {

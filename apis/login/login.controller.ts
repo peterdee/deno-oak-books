@@ -43,11 +43,41 @@ export default async function (ctx: RouterContext): Promise<void> {
     // get password record
     const Password = database.collection('Password');
     const passwordRecord: PasswordInterface = await Password.findOne({
-      userId: userRecord._id['$oid'],
+      // userId: userRecord._id['$oid'],
+      userId: userRecord.id,
     });
     if (!passwordRecord) {
       return response(ctx, Status.Unauthorized, SERVER_MESSAGES.accessDenied);
     }
+
+    const x = await User.aggregate([
+      { 
+        $match: {
+          email: trimmedEmail,
+        },
+      },
+      {
+        $lookup: {
+          from: 'Password',
+          localField: 'id',
+          foreignField: 'userId',
+          as: 'password',
+        },
+      },
+      {
+        $unwind: {
+          path: '$password',
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      // {
+      //   $project: {
+      //     _id: 1,
+      //     hash: '$password.hash',
+      //   },
+      // },
+    ]);
+    console.log('x', x);
 
     // compare the hashes
     const matching = await compare(trimmedPassword, passwordRecord.hash);

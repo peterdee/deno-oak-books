@@ -4,5 +4,6 @@ export interface Generic {
   };
   created: string;
   entity: string;
+  id: string;
   updated: string;
 };
