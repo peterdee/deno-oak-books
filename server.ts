@@ -7,6 +7,7 @@ import log from './utilities/log.ts';
 import logger from './middlewares/logger.ts';
 import responseTime from './middlewares/response-time.ts';
 
+import follow from './apis/follow/index.ts';
 import index from './apis/index/index.ts';
 import login from './apis/login/index.ts';
 import registration from './apis/registration/index.ts';
@@ -26,6 +27,7 @@ app.use(logger);
 app.use(responseTime);
 
 // routing
+app.use(follow.routes());
 app.use(index.routes());
 app.use(login.routes());
 app.use(registration.routes());

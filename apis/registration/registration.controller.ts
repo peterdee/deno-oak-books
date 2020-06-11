@@ -42,7 +42,7 @@ export default async function (ctx: RouterContext): Promise<void> {
     }
 
     // check if email is available
-    const User = database.collection('User');
+    const User = database.collection(collections.User);
     const existingRecord: UserInterface = await User.findOne({
       email: trimmedEmail,
     });

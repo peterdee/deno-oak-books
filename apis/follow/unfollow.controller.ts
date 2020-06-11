@@ -2,16 +2,15 @@ import { compare } from 'https://deno.land/x/bcrypt/mod.ts';
 import { RouterContext, Status } from 'https://deno.land/x/oak/mod.ts';
 
 import bodyParser from '../../utilities/body-parser.ts';
-import database, { collections } from '../../database/index.ts';
+import database from '../../database/index.ts';
 import generateTokens from '../../utilities/generate-tokens.ts';
-import { LoginData } from './types.ts';
 import response from '../../utilities/response.ts';
 import sanitize from '../../utilities/sanitize.ts';
 import { SERVER_MESSAGES } from '../../config/index.ts';
 import { TokenPair } from '../../utilities/types.ts';
 
 /**
- * Handle the Login route
+ * Unfollow user
  * @param {RouterContext} ctx - context
  * @returns {Promise<void>}
  */
@@ -21,7 +20,7 @@ export default async function (ctx: RouterContext): Promise<void> {
     const {
       email = '',
       password = '',
-    }: LoginData = await bodyParser(ctx, ['email', 'password']);
+    } = await bodyParser(ctx, ['email', 'password']);
     const trimmedEmail = sanitize(email.trim());
     const trimmedPassword = sanitize(password.trim());
     if (!(trimmedEmail && trimmedPassword)) {
@@ -29,7 +28,7 @@ export default async function (ctx: RouterContext): Promise<void> {
     }
 
     // get user record
-    const User = database.collection(collections.User);
+    const User = database.collection('User');
     const [{ hash = '', id = '' } = {}] = await User.aggregate([
       { 
         $match: {
@@ -38,7 +37,7 @@ export default async function (ctx: RouterContext): Promise<void> {
       },
       {
         $lookup: {
-          from: collections.Password,
+          from: 'Password',
           localField: 'id',
           foreignField: 'userId',
           as: 'password',
