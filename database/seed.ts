@@ -3,9 +3,9 @@ import { hash } from 'https://deno.land/x/bcrypt/mod.ts';
 import { ACCOUNT_TYPES, ADMIN } from '../config/index.ts';
 import database, {
   collections,
+  generateId,
   User,
 } from './index.ts';
-import generateId from '../utilities/generate-id.ts';
 import log from '../utilities/log.ts';
 
 /**
