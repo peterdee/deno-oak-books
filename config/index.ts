@@ -52,11 +52,14 @@ export const SEND_ERROR_MESSAGES = environemt.SEND_ERROR_MESSAGES === 'true';
 export const SERVER_MESSAGES = {
   accessDenied: 'ACCESS_DENIED',
   emailIsAlreadyInUse: 'EMAIL_IS_ALREADY_IN_USE',
+  expiredToken: 'EXPIRED_TOKEN',
   internalServerError: 'INTERNAL_SERVER_ERROR',
+  invalidToken: 'INVALID_TOKEN',
   missingData: 'MISSING_DATA',
   missingToken: 'MISSING_TOKEN',
   noAdditionalInformation: 'NO_ADDITIONAL_INFORMATION',
   ok: 'OK',
+  userNotFound: 'USER_NOT_FOUND',
 };
 
 // Tokens

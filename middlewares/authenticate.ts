@@ -1,9 +1,12 @@
 import { Status } from 'https://deno.land/x/oak/mod.ts';
 import { validateJwt } from 'https://deno.land/x/djwt/validate.ts';
 
-import database, { User } from '../database/index.ts';
+import database, { collections, User } from '../database/index.ts';
 import response from '../utilities/response.ts';
 import { SERVER_MESSAGES, TOKENS } from '../config/index.ts';
+
+const expired = 'EXPIRED';
+const invalid = 'INVALID';
 
 /**
  * Authenticate the user
@@ -14,27 +17,39 @@ import { SERVER_MESSAGES, TOKENS } from '../config/index.ts';
 export default async function (ctx: any, next: any): Promise<void> {
   try {
     // check the token
-    const { request: { headers: { 'x-access-token': token = '' } = {} } = {} } = ctx;
+    const token = ctx.request.headers.get('X-Access-Token') || '';
     if (!token) {
       return response(ctx, Status.Unauthorized, SERVER_MESSAGES.missingToken);
     }
 
-    const decoded = await validateJwt(token, TOKENS.access.secret, { isThrowing: true });
-
-    // TODO: checks, the rest of the logic
+    const decoded: any = await validateJwt(token, TOKENS.access.secret);
+    if (!(decoded && decoded.isValid)) {
+      throw invalid;
+    }
+    if (decoded && decoded.isExpired) {
+      throw expired;
+    }
+    if (decoded && decoded.error) {
+      throw decoded.error;
+    }
 
     // get the record
-    const Users = database.collection('Users');
-    const user: User = await Users.findOne({ id: decoded.id });
+    const User = database.collection(collections.User);
+    const user: User = await User.findOne({ id: decoded.payload.iss });
     if (!user) {
       return response(ctx, Status.Unauthorized, SERVER_MESSAGES.accessDenied);
     }
 
     // continue
-    ctx.id = decoded.id;
+    ctx.id = decoded.payload.iss;
     return next();
   } catch (error) {
-    // TODO: check if the error is caused by the token expiration
+    if (error === expired) {
+      return response(ctx, Status.Unauthorized, SERVER_MESSAGES.expiredToken);
+    }
+    if (error === invalid) {
+      return response(ctx, Status.Unauthorized, SERVER_MESSAGES.invalidToken);
+    }
 
     return response(ctx, Status.Unauthorized, SERVER_MESSAGES.accessDenied);
   }

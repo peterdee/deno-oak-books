@@ -1,6 +1,6 @@
 import { Generic } from './Generic.interface.ts';
 
-export interface Password extends Generic {
+export interface Follower extends Generic {
   userId: string;
-  hash: string;
+  followedId: string;
 };
