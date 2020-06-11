@@ -40,13 +40,11 @@ import log from '../utilities/log.ts';
     ]);
 
     // create the Password record
-    const Password = database.collection(collections.Password);
-    const passwordId = generateId();
-    await Password.insertOne({
+    await database.collection(collections.Password).insertOne({
       created: `${now}`,
       entity: collections.Password,
       hash: hashed,
-      id: passwordId,
+      id: generateId(),
       updated: `${now}`,
       userId,
     });

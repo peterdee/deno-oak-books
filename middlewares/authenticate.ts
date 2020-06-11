@@ -25,12 +25,7 @@ export default async function (ctx: any, next: any): Promise<void> {
 
     // get the record
     const Users = database.collection('Users');
-    const user: User = await Users.findOne({
-      _id: {
-        '$oid': decoded.id,
-      },
-    });
-
+    const user: User = await Users.findOne({ id: decoded.id });
     if (!user) {
       return response(ctx, Status.Unauthorized, SERVER_MESSAGES.accessDenied);
     }
