@@ -5,6 +5,7 @@ import database, {
   collections,
   Follower,
   generateId,
+  User,
 } from '../../database/index.ts';
 import response from '../../utilities/response.ts';
 import { SERVER_MESSAGES } from '../../config/index.ts';
@@ -23,40 +24,19 @@ export default async function (ctx: Context): Promise<void> {
     }
 
     // check if already following
-    const Follower = database.collection('Follower');
-    const [{ id: recordId = '', userId = '' } = {}] = await Follower.aggregate([
-      { 
-        $match: {
-          followedId: id,
-          userId: ctx.id,
-        },
-      },
-      {
-        $lookup: {
-          from: collections.User,
-          localField: 'followedId',
-          foreignField: 'id',
-          as: 'user',
-        },
-      },
-      {
-        $unwind: {
-          path: '$user',
-          preserveNullAndEmptyArrays: true,
-        },
-      },
-      {
-        $project: {
-          id: 1,
-          userId: '$user.id',
-        },
-      },
-    ]);
-    console.log(recordId, '|', userId)
-    if (recordId && userId) {
+    const Follower = database.collection(collections.Follower);
+    const followingRecord: Follower = await Follower.findOne({
+      followedId: id,
+      userId: ctx.id,
+    });
+    if (followingRecord) {
       return response(ctx, Status.OK, SERVER_MESSAGES.ok);
     }
-    if (!userId) {
+
+    // check if User ID is valid
+    const User = database.collection(collections.User);
+    const existingUser: User = await User.findOne({ id });
+    if (!existingUser) {
       return response(ctx, Status.BadRequest, SERVER_MESSAGES.userNotFound);
     }
 
