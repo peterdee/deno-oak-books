@@ -2,10 +2,7 @@ import { compare } from 'https://deno.land/x/bcrypt/mod.ts';
 import { RouterContext, Status } from 'https://deno.land/x/oak/mod.ts';
 
 import bodyParser from '../../utilities/body-parser.ts';
-import database, {
-  Password as PasswordInterface,
-  User as UserInterface,
-} from '../../database/index.ts';
+import database from '../../database/index.ts';
 import generateTokens from '../../utilities/generate-tokens.ts';
 import { LoginData } from './types.ts';
 import response from '../../utilities/response.ts';
@@ -33,30 +30,45 @@ export default async function (ctx: RouterContext): Promise<void> {
 
     // get user record
     const User = database.collection('User');
-    const userRecord: UserInterface = await User.findOne({
-      email: trimmedEmail,
-    });
-    if (!userRecord) {
-      return response(ctx, Status.Unauthorized, SERVER_MESSAGES.accessDenied);
-    }
-
-    // get password record
-    const Password = database.collection('Password');
-    const passwordRecord: PasswordInterface = await Password.findOne({
-      userId: userRecord._id['$oid'],
-    });
-    if (!passwordRecord) {
+    const [{ hash = '', id = '' } = {}] = await User.aggregate([
+      { 
+        $match: {
+          email: trimmedEmail,
+        },
+      },
+      {
+        $lookup: {
+          from: 'Password',
+          localField: 'id',
+          foreignField: 'userId',
+          as: 'password',
+        },
+      },
+      {
+        $unwind: {
+          path: '$password',
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $project: {
+          hash: '$password.hash',
+          id: 1,
+        },
+      },
+    ]);
+    if (!(hash && id)) {
       return response(ctx, Status.Unauthorized, SERVER_MESSAGES.accessDenied);
     }
 
     // compare the hashes
-    const matching = await compare(trimmedPassword, passwordRecord.hash);
+    const matching = await compare(trimmedPassword, hash);
     if (!matching) {
       return response(ctx, Status.Unauthorized, SERVER_MESSAGES.accessDenied);
     }
 
     // generate the tokens
-    const tokens: TokenPair = generateTokens(userRecord._id['$oid']);
+    const tokens: TokenPair = generateTokens(id);
 
     return response(ctx, Status.OK, SERVER_MESSAGES.ok, tokens);
   } catch (error) {

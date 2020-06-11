@@ -45,6 +45,9 @@ export const PORT = Number(environemt.PORT) || 9922;
 // SendGrid API key
 export const SENDGRID_KEY = environemt.SENDGRID_KEY || '';
 
+// Send error messages via email
+export const SEND_ERROR_MESSAGES = environemt.SEND_ERROR_MESSAGES === 'true';
+
 // Server messages
 export const SERVER_MESSAGES = {
   accessDenied: 'ACCESS_DENIED',

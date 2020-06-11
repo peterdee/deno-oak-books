@@ -5,7 +5,7 @@ import { ACCOUNT_TYPES, SERVER_MESSAGES } from '../../config/index.ts';
 import bodyParser from '../../utilities/body-parser.ts';
 import database, {
   collections,
-  NewRecord,
+  generateId,
   User as UserInterface,
 } from '../../database/index.ts';
 import generateTokens from '../../utilities/generate-tokens.ts';
@@ -52,17 +52,19 @@ export default async function (ctx: RouterContext): Promise<void> {
 
     // create a new User record, hash the password
     const now = Date.now();
-    const [userRecord, hashed]: [NewRecord, string] = await Promise.all([
+    const userId = generateId();
+    const [hashed] = await Promise.all([
+      hash(trimmedPassword),
       User.insertOne({
         accountType: ACCOUNT_TYPES.user,
         created: `${now}`,
         email: trimmedEmail,
         entity: collections.User,
         firstName: trimmedFirstName,
+        id: userId,
         lastName: trimmedLastName,
         updated: `${now}`,
       }),
-      hash(trimmedPassword),
     ]);
 
     // create the Password record
@@ -70,12 +72,13 @@ export default async function (ctx: RouterContext): Promise<void> {
       created: `${now}`,
       entity: collections.Password,
       hash: hashed,
+      id: generateId(),
       updated: `${now}`,
-      userId: userRecord['$oid'],
+      userId,
     });
 
     // generate the tokens
-    const tokens: TokenPair = generateTokens(userRecord['$oid']);
+    const tokens: TokenPair = generateTokens(userId);
 
     return response(ctx, Status.OK, SERVER_MESSAGES.ok, tokens);
   } catch (error) {
