@@ -59,6 +59,7 @@ export const SERVER_MESSAGES = {
   missingToken: 'MISSING_TOKEN',
   noAdditionalInformation: 'NO_ADDITIONAL_INFORMATION',
   ok: 'OK',
+  oldPasswordIsInvalid: 'OLD_PASSWORD_IS_INVALID',
   userNotFound: 'USER_NOT_FOUND',
 };
 
