@@ -4,6 +4,7 @@ export interface Context extends RouterContext {
   id?: string;
 };
 
-export interface FollowData {
-  id?: string;
+export interface PasswordData {
+  newPassword?: string;
+  oldPassword?: string;
 };
