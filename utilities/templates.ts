@@ -4,6 +4,29 @@ import { ENV } from '../config/index.ts';
 import { Template } from './types.ts';
 
 /**
+ * Create a template for the email change
+ * @param {string} firstName - user's first name
+ * @param {string} lastName - user's last name
+ * @param {string} link - comfirmation link
+ * @returns {Template}
+ */
+export const createChangeEmailTemplate = (
+  firstName: string = '',
+  lastName: string = '',
+  link: string = '',
+): Template => ({
+  template: `
+<h1>Confirm your new email address</h1>
+<br>
+<div>Hey ${firstName} ${lastName}!</div>
+<div>Please click the link below to confirm your new email address:</div>
+<br>
+<div><a href="${link}">${link}</a></div>
+  `,
+  topic: 'Confirm your new email address',
+});
+
+/**
  * Create a template for the password recovery
  * @param {string} firstName - user's first name
  * @param {string} lastName - user's last name
@@ -23,7 +46,7 @@ export const createPasswordRecoveryTemplate = (
 <br>
 <div><a href="${link}">${link}</a></div>
   `,
-  topic: `Password recovery`
+  topic: 'Password recovery',
 });
 
 /**
@@ -35,13 +58,11 @@ export const internalServerError = (error: Error): Template => ({
   template: `
 <h1>INTERNAL SERVER ERROR!</h1>
 <br>
-<br>
 <div>This is an internal error</div>
 <div>Happened on ${new Date()} (${Date.now()})</div>
-<br>
 <br>
 <div>Full error text:</div>
 <div>${destr(error)}</div>
   `,
-  topic: `DENO-OAK-BOOKS: INTERNAL SERVER ERROR [${ENV.toUpperCase()}]`
+  topic: `DENO-OAK-BOOKS: INTERNAL SERVER ERROR [${ENV.toUpperCase()}]`,
 });

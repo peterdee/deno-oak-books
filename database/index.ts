@@ -7,10 +7,12 @@ export { Follower } from './models/Follower.interface.ts';
 export { NewRecord } from './models/NewRecord.interface.ts';
 export { Password } from './models/Password.interface.ts';
 export { User } from './models/User.interface.ts';
+export { UserEmail } from './models/UserEmail.interface.ts';
 export const collections = {
   Follower: 'Follower',
   Password: 'Password',
   User: 'User',
+  UserEmail: 'UserEmail',
 };
 export const generateId = generate;
 
