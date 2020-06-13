@@ -7,7 +7,6 @@ import database, {
   collections,
   Password as PasswordInterface,
 } from '../../database/index.ts';
-import generateTokens from '../../utilities/generate-tokens.ts';
 import response from '../../utilities/response.ts';
 import sanitize from '../../utilities/sanitize.ts';
 

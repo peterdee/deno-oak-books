@@ -60,6 +60,7 @@ export const SERVER_MESSAGES = {
   emailIsAlreadyInUse: 'EMAIL_IS_ALREADY_IN_USE',
   expiredToken: 'EXPIRED_TOKEN',
   internalServerError: 'INTERNAL_SERVER_ERROR',
+  invalidRecoveryCode: 'INVALID_RECOVERY_CODE',
   invalidToken: 'INVALID_TOKEN',
   missingData: 'MISSING_DATA',
   missingToken: 'MISSING_TOKEN',

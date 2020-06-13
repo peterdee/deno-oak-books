@@ -1,7 +1,6 @@
 import { compare, hash } from 'https://deno.land/x/bcrypt/mod.ts';
 import { Status } from 'https://deno.land/x/oak/mod.ts';
 
-import { SERVER_MESSAGES } from '../../config/index.ts';
 import bodyParser from '../../utilities/body-parser.ts';
 import { Context, PasswordData } from './types.ts';
 import database, {
@@ -10,6 +9,7 @@ import database, {
 } from '../../database/index.ts';
 import response from '../../utilities/response.ts';
 import sanitize from '../../utilities/sanitize.ts';
+import { SERVER_MESSAGES } from '../../config/index.ts';
 
 /**
  * Change user password
