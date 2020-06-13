@@ -54,7 +54,7 @@ export default async function (ctx: RouterContext): Promise<void> {
         $set: {
           hash: hashed,
           recoveryCode: null,
-          updated: Date.now(),
+          updated: `${Date.now()}`,
         },
       },
     );

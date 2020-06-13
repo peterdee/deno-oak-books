@@ -82,7 +82,7 @@ export default async function (ctx: RouterContext): Promise<void> {
       {
         $set: {
           recoveryCode: code,
-          updated: Date.now(),
+          updated: `${Date.now()}`,
         },
       },
     );
