@@ -7,6 +7,6 @@ import validate from './validate.controller.ts';
 const router = new Router({ prefix: '/api' });
 router.post('/password-recovery', send);
 router.patch('/password-recovery', update);
-router.get('/password-recovery/:id', validate);
+router.get('/password-recovery/:code', validate);
 
 export default router;

@@ -3,12 +3,12 @@ import { RouterContext, Status } from 'https://deno.land/x/oak/mod.ts';
 import { internalServerError } from './templates.ts';
 import log from './log.ts';
 import mailer from './mailer.ts';
-import { Response } from './types.ts';
+import { Context, Response } from './types.ts';
 import { MAILER_FROM, SEND_ERROR_MESSAGES, SERVER_MESSAGES } from '../config/index.ts';
 
 /**
  * Send response to the frontend
- * @param {RouterContext} ctx - context
+ * @param {Context|RouterContext} ctx - context
  * @param {number} status - response status
  * @param {string} info - response info
  * @param {*} data - data object (optional)
@@ -16,7 +16,7 @@ import { MAILER_FROM, SEND_ERROR_MESSAGES, SERVER_MESSAGES } from '../config/ind
  * @returns {void} 
  */
 export default function (
-  ctx: RouterContext,
+  ctx: Context|RouterContext,
   status: number = Status.OK,
   info: string = SERVER_MESSAGES.ok,
   data: any = null,

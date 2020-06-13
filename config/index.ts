@@ -58,8 +58,10 @@ export const SEND_ERROR_MESSAGES = environment.SEND_ERROR_MESSAGES === 'true';
 export const SERVER_MESSAGES = {
   accessDenied: 'ACCESS_DENIED',
   emailIsAlreadyInUse: 'EMAIL_IS_ALREADY_IN_USE',
+  expiredRecoveryCode: 'EXPIRED_RECOVERY_CODE',
   expiredToken: 'EXPIRED_TOKEN',
   internalServerError: 'INTERNAL_SERVER_ERROR',
+  invalidRecoveryCode: 'INVALID_RECOVERY_CODE',
   invalidToken: 'INVALID_TOKEN',
   missingData: 'MISSING_DATA',
   missingToken: 'MISSING_TOKEN',
