@@ -73,6 +73,7 @@ export default async function (ctx: RouterContext): Promise<void> {
       entity: collections.Password,
       hash: hashed,
       id: generateId(),
+      recoveryCode: null,
       updated: `${now}`,
       userId,
     });

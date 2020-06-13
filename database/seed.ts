@@ -45,6 +45,7 @@ import log from '../utilities/log.ts';
       entity: collections.Password,
       hash: hashed,
       id: generateId(),
+      recoveryCode: null,
       updated: `${now}`,
       userId,
     });

@@ -1,9 +1,3 @@
-export interface InternalErrorTemplate {
-  template: string;
-  topic: string;
-};
-
-
 export interface Response {
   data?: any;
   datetime: number;
@@ -11,6 +5,11 @@ export interface Response {
   misc: string;
   request: string;
   status: number;
+};
+
+export interface Template {
+  template: string;
+  topic: string;
 };
 
 export interface TokenPair {

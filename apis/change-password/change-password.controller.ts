@@ -8,7 +8,6 @@ import database, {
   collections,
   Password as PasswordInterface,
 } from '../../database/index.ts';
-import generateTokens from '../../utilities/generate-tokens.ts';
 import response from '../../utilities/response.ts';
 import sanitize from '../../utilities/sanitize.ts';
 
@@ -50,15 +49,17 @@ export default async function (ctx: Context): Promise<void> {
 
     // update the Password record
     const hashed = await hash(trimmedNewPassword);
-    await Password.updateOne(      {
-      userId: ctx.id,
-    },
-    {
-      $set: {
-        hash: hashed,
-        updated: Date.now(),
+    await Password.updateOne(
+      {
+        userId: ctx.id,
       },
-    },);
+      {
+        $set: {
+          hash: hashed,
+          updated: Date.now(),
+        },
+      },
+    );
 
     return response(ctx, Status.OK, SERVER_MESSAGES.ok);
   } catch (error) {
