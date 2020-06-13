@@ -31,6 +31,12 @@ export default async function (ctx: RouterContext): Promise<void> {
       return response(ctx, Status.BadRequest, SERVER_MESSAGES.invalidRecoveryCode);
     }
 
+    // make sure that the code is not expired
+    const ttl = 1000 * 60 * 60 * 4;
+    if (Number(passwordRecord.updated) + ttl < Date.now()) {
+      return response(ctx, Status.BadRequest, SERVER_MESSAGES.expiredRecoveryCode);
+    }
+
     return response(ctx, Status.OK, SERVER_MESSAGES.ok);
   } catch (error) {
     return response(
