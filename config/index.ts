@@ -65,6 +65,7 @@ export const SERVER_MESSAGES = {
   invalidRecoveryCode: 'INVALID_RECOVERY_CODE',
   invalidToken: 'INVALID_TOKEN',
   missingData: 'MISSING_DATA',
+  missingRefreshToken: 'MISSING_REFRESH_TOKEN',
   missingToken: 'MISSING_TOKEN',
   noAdditionalInformation: 'NO_ADDITIONAL_INFORMATION',
   ok: 'OK',
