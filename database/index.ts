@@ -6,11 +6,13 @@ import generate from '../utilities/generate-id.ts';
 export { Follower } from './models/Follower.interface.ts';
 export { NewRecord } from './models/NewRecord.interface.ts';
 export { Password } from './models/Password.interface.ts';
+export { RefreshToken } from './models/RefreshToken.interface.ts';
 export { User } from './models/User.interface.ts';
 export { UserEmail } from './models/UserEmail.interface.ts';
 export const collections = {
   Follower: 'Follower',
   Password: 'Password',
+  RefreshToken: 'RefreshToken',
   User: 'User',
   UserEmail: 'UserEmail',
 };
