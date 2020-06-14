@@ -9,3 +9,7 @@ Authentication: [JWT](https://jwt.io/)
 Mailing: [SendGrid](https://sendgrid.com/)
 
 DEV: http://localhost:9922
+
+### Deploy
+
+This project uses [`Deno`](https://deno.land/) v1.0.5 and [`deno_mongo`](https://github.com/manyuanrong/deno_mongo) v0.8.0

@@ -2,7 +2,7 @@ import { compare } from 'https://deno.land/x/bcrypt/mod.ts';
 import { RouterContext, Status } from 'https://deno.land/x/oak/mod.ts';
 
 import bodyParser from '../../utilities/body-parser.ts';
-import database, { collections } from '../../database/index.ts';
+import database, { collections, generateId } from '../../database/index.ts';
 import generateTokens from '../../utilities/generate-tokens.ts';
 import { LoginData } from './types.ts';
 import response from '../../utilities/response.ts';
@@ -69,6 +69,17 @@ export default async function (ctx: RouterContext): Promise<void> {
 
     // generate the tokens
     const tokens: TokenPair = generateTokens(id);
+
+    // store Refresh Token
+    const now = `${Date.now()}`;
+    await database.collection(collections.RefreshToken).insertOne({
+      created: now,
+      entity: collections.RefreshToken,
+      id: generateId(),
+      token: tokens.refresh,
+      updated: now,
+      userId: id,
+    });
 
     return response(ctx, Status.OK, SERVER_MESSAGES.ok, tokens);
   } catch (error) {
