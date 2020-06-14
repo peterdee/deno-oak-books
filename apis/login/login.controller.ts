@@ -22,7 +22,7 @@ export default async function (ctx: RouterContext): Promise<void> {
       email = '',
       password = '',
     }: LoginData = await bodyParser(ctx, ['email', 'password']);
-    const trimmedEmail = sanitize(email.trim());
+    const trimmedEmail = sanitize(email.trim().toLowerCase());
     const trimmedPassword = sanitize(password.trim());
     if (!(trimmedEmail && trimmedPassword)) {
       return response(ctx, Status.BadRequest, SERVER_MESSAGES.missingData);

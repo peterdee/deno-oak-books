@@ -6,6 +6,6 @@ export interface Context extends RouterContext {
   user?: User; 
 };
 
-export interface ChangeEmailData {
-  newEmail?: string;
+export interface LogoutData {
+  refreshToken?: string;
 };

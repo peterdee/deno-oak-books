@@ -33,7 +33,7 @@ export default async function (ctx: RouterContext): Promise<void> {
       'lastName',
       'password',
     ]);
-    const trimmedEmail = sanitize(email.trim());
+    const trimmedEmail = sanitize(email.trim().toLowerCase());
     const trimmedFirstName = sanitize(firstName.trim());
     const trimmedLastName = sanitize(lastName.trim());
     const trimmedPassword = sanitize(password.trim());
