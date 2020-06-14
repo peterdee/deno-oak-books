@@ -61,6 +61,7 @@ export const SERVER_MESSAGES = {
   expiredRecoveryCode: 'EXPIRED_RECOVERY_CODE',
   expiredToken: 'EXPIRED_TOKEN',
   internalServerError: 'INTERNAL_SERVER_ERROR',
+  invalidConfirmationCode: 'INVALID_CONFIRMATION_CODE',
   invalidRecoveryCode: 'INVALID_RECOVERY_CODE',
   invalidToken: 'INVALID_TOKEN',
   missingData: 'MISSING_DATA',

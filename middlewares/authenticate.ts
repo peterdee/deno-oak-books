@@ -42,6 +42,7 @@ export default async function (ctx: any, next: any): Promise<void> {
 
     // continue
     ctx.id = decoded.payload.iss;
+    ctx.user = { ...user };
     return next();
   } catch (error) {
     if (error === expired) {
