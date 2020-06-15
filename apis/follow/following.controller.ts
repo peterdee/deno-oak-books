@@ -11,7 +11,7 @@ import response from '../../utilities/response.ts';
 import { SERVER_MESSAGES } from '../../config/index.ts';
 
 /**
- * Get user's following list
+ * Get a list of whom the user is following
  * @param {Context} ctx - context
  * @returns {Promise<void>}
  */
