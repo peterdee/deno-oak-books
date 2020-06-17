@@ -34,6 +34,7 @@ import log from '../utilities/log.ts';
         email: ADMIN.email,
         entity: collections.User,
         firstName: ADMIN.firstName,
+        fullName: `${ADMIN.firstName} ${ADMIN.lastName}`,
         lastName: ADMIN.lastName,
         updated: `${now}`,
       }),

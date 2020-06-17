@@ -7,6 +7,6 @@ export interface Context extends RouterContext {
 };
 
 export interface UpdateUserData {
-  email?: string;
-  password?: string;
+  firstName?: string;
+  lastName?: string;
 };
