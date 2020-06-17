@@ -61,6 +61,7 @@ export default async function (ctx: RouterContext): Promise<void> {
         email: trimmedEmail,
         entity: collections.User,
         firstName: trimmedFirstName,
+        fullName: `${trimmedFirstName} ${trimmedLastName}`,
         id: userId,
         lastName: trimmedLastName,
         updated: `${now}`,
