@@ -56,7 +56,7 @@ export default async function (ctx: Context): Promise<void> {
       {
         $set: {
           hash: hashed,
-          updated: Date.now(),
+          updated: `${Date.now()}`,
         },
       },
     );

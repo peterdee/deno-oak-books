@@ -39,6 +39,7 @@ export default async function (ctx: Context): Promise<void> {
         },
       },
     );
+    
     return response(ctx, Status.OK, SERVER_MESSAGES.ok);
   } catch (error) {
     return response(
