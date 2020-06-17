@@ -1,6 +1,6 @@
 import { Status } from 'https://deno.land/x/oak/mod.ts';
 
-import database, { collections, generateId } from '../../database/index.ts';
+import database, { collections } from '../../database/index.ts';
 import { Context } from './types.ts';
 import response from '../../utilities/response.ts';
 import { SERVER_MESSAGES } from '../../config/index.ts';
@@ -12,7 +12,14 @@ import { SERVER_MESSAGES } from '../../config/index.ts';
  */
 export default async function (ctx: Context): Promise<void> {
   try {
-    // TODO
+    const { id: userId = '' } = ctx;
+    await Promise.all([
+      database.collection(collections.Follower).deleteMany({ userId }),
+      database.collection(collections.Password).deleteOne({ userId }),
+      database.collection(collections.RefreshToken).deleteMany({ userId }),
+      database.collection(collections.User).deleteOne({ id: userId }),
+      database.collection(collections.UserEmail).deleteMany({ userId }),
+    ]);
 
     return response(ctx, Status.OK, SERVER_MESSAGES.ok);
   } catch (error) {
