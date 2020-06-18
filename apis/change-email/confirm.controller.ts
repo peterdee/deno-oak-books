@@ -50,7 +50,7 @@ export default async function (ctx: Context|RouterContext): Promise<void> {
         {
           $set: {
             email: record.newEmail,
-            updated: Date.now(),
+            updated: `${Date.now()}`,
           },
         },
       ),
