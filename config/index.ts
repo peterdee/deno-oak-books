@@ -68,10 +68,14 @@ export const SERVER_MESSAGES = {
   missingRefreshToken: 'MISSING_REFRESH_TOKEN',
   missingToken: 'MISSING_TOKEN',
   noAdditionalInformation: 'NO_ADDITIONAL_INFORMATION',
+  notFound: 'NOT_FOUND',
   ok: 'OK',
   oldPasswordIsInvalid: 'OLD_PASSWORD_IS_INVALID',
   userNotFound: 'USER_NOT_FOUND',
 };
+
+// TMDB API key
+export const { TMDB_API_KEY = '' } = environment;
 
 // Tokens
 export const TOKENS = {
