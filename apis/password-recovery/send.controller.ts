@@ -1,4 +1,4 @@
-import { RouterContext, Status } from 'https://deno.land/x/oak/mod.ts';
+import { RouterContext, Status } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
 
 import bodyParser from '../../utilities/body-parser.ts';
 import { createPasswordRecoveryTemplate } from '../../utilities/templates.ts';
@@ -13,9 +13,9 @@ import mailer from '../../utilities/mailer.ts';
 /**
  * Send password recovery link
  * @param {RouterContext} ctx - context
- * @returns {Promise<void>}
+ * @returns {Promise<any>}
  */
-export default async function (ctx: RouterContext): Promise<void> {
+export default async function (ctx: RouterContext): Promise<any> {
   try {
     // check data
     const { email = '' }: SendLinkData = await bodyParser(ctx, ['email']);

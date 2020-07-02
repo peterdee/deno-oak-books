@@ -1,4 +1,4 @@
-import { RouterContext, Status } from 'https://deno.land/x/oak/mod.ts';
+import { RouterContext, Status } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
 
 import database, {
   collections,
@@ -11,9 +11,9 @@ import { SERVER_MESSAGES } from '../../config/index.ts';
 /**
  * Validate password recovery code
  * @param {RouterContext} ctx - context
- * @returns {Promise<void>}
+ * @returns {Promise<any>}
  */
-export default async function (ctx: RouterContext): Promise<void> {
+export default async function (ctx: RouterContext): Promise<any> {
   try {
     // check data
     const { params: { code = '' } = {} } = ctx;

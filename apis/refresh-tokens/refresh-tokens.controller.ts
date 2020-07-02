@@ -1,4 +1,4 @@
-import { RouterContext, Status } from 'https://deno.land/x/oak/mod.ts';
+import { RouterContext, Status } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
 import { validateJwt } from 'https://deno.land/x/djwt/validate.ts';
 
 import database, {
@@ -14,9 +14,9 @@ import { TokenPair } from '../../utilities/types.ts';
 /**
  * Refresh tokens
  * @param {RouterContext} ctx - context
- * @returns {Promise<void>}
+ * @returns {Promise<any>}
  */
-export default async function (ctx: RouterContext): Promise<void> {
+export default async function (ctx: RouterContext): Promise<any> {
   try {
     // check the token
     const token = ctx.request.headers.get('X-Refresh-Token') || '';

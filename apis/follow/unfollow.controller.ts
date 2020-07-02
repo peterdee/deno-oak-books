@@ -1,4 +1,4 @@
-import { Status } from 'https://deno.land/x/oak/mod.ts';
+import { Status } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
 
 import { Context } from './types.ts';
 import database, { collections } from '../../database/index.ts';
@@ -8,9 +8,9 @@ import { SERVER_MESSAGES } from '../../config/index.ts';
 /**
  * Unfollow user
  * @param {Context} ctx - context
- * @returns {Promise<void>}
+ * @returns {Promise<any>}
  */
-export default async function (ctx: Context): Promise<void> {
+export default async function (ctx: Context): Promise<any> {
   try {
     // check data
     const { params: { id = '' } = {} } = ctx;

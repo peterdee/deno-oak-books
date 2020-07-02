@@ -1,5 +1,5 @@
 import { hash } from 'https://deno.land/x/bcrypt/mod.ts';
-import { RouterContext, Status } from 'https://deno.land/x/oak/mod.ts';
+import { RouterContext, Status } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
 
 import { ACCOUNT_TYPES, SERVER_MESSAGES } from '../../config/index.ts';
 import bodyParser from '../../utilities/body-parser.ts';
@@ -17,9 +17,9 @@ import { TokenPair } from '../../utilities/types.ts';
 /**
  * Handle the Login route
  * @param {RouterContext} ctx - context
- * @returns {Promise<void>}
+ * @returns {Promise<any>}
  */
-export default async function (ctx: RouterContext): Promise<void> {
+export default async function (ctx: RouterContext): Promise<any> {
   try {
     // check data
     const {
