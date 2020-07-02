@@ -10,9 +10,9 @@ import {
  * Logger middleware
  * @param {RouterContext} ctx - context
  * @param {*} next - call the next middleware
- * @returns {Promise<void>}
+ * @returns {Promise<any>}
  */
-export default async function (ctx: any, next: any): Promise<void> {
+export default async function (ctx: any, next: any): Promise<any> {
   await next();
   const responseTime = ctx.response.headers.get('X-Response-Time');
   const { response: { status = 200 } = {} } = ctx;

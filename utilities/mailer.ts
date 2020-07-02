@@ -8,13 +8,13 @@ import { MAILER_FROM, SENDGRID_KEY } from '../config/index.ts';
  * @param {string} destination - destination email address
  * @param {string} message - message to send (HTML)
  * @param {string} topic - topic of the message
- * @returns {Promise<void>}
+ * @returns {Promise<any>}
  */
 export default async function (
   destination: string,
   message: string,
   topic: string,
-): Promise<void> {
+): Promise<any> {
   try {
     const response = await sendMail(
       {

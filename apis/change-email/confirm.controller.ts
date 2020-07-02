@@ -1,4 +1,4 @@
-import { RouterContext, Status } from 'https://deno.land/x/oak/mod.ts';
+import { RouterContext, Status } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
 
 import { Context } from './types.ts';
 import database, {
@@ -12,9 +12,9 @@ import { SERVER_MESSAGES } from '../../config/index.ts';
 /**
  * Confirm a new email address
  * @param {Context|RouterContext} ctx - context
- * @returns {Promise<void>}
+ * @returns {Promise<*>}
  */
-export default async function (ctx: Context|RouterContext): Promise<void> {
+export default async function (ctx: Context|RouterContext): Promise<any> {
   try {
     // check data
     const { params: { code = '' } = {} } = ctx;

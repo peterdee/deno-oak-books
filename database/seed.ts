@@ -10,7 +10,7 @@ import log from '../utilities/log.ts';
 
 /**
  * Seed the Admin data
- * @returns {Promise<void>}
+ * @returns {Promise<any>}
  */
 (async function seed() {
   try {

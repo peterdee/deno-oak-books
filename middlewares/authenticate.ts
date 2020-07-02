@@ -1,4 +1,4 @@
-import { Status } from 'https://deno.land/x/oak/mod.ts';
+import { Status } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
 import { validateJwt } from 'https://deno.land/x/djwt/validate.ts';
 
 import database, {
@@ -15,9 +15,9 @@ const invalid = 'INVALID';
  * Authenticate the user
  * @param {RouterContext} ctx - context
  * @param {*} next - call the next middleware
- * @returns {Promise<void>}
+ * @returns {Promise<*>}
  */
-export default async function (ctx: any, next: any): Promise<void> {
+export default async function (ctx: any, next: any): Promise<any> {
   try {
     // check the token
     const token = ctx.request.headers.get('X-Access-Token') || '';

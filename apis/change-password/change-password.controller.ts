@@ -1,5 +1,5 @@
 import { compare, hash } from 'https://deno.land/x/bcrypt/mod.ts';
-import { Status } from 'https://deno.land/x/oak/mod.ts';
+import { Status } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
 
 import bodyParser from '../../utilities/body-parser.ts';
 import { Context, PasswordData } from './types.ts';
@@ -14,9 +14,9 @@ import { SERVER_MESSAGES } from '../../config/index.ts';
 /**
  * Change user password
  * @param {Context} ctx - context
- * @returns {Promise<void>}
+ * @returns {Promise<any>}
  */
-export default async function (ctx: Context): Promise<void> {
+export default async function (ctx: Context): Promise<any> {
   try {
     // check data
     const {

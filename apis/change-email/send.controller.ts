@@ -1,4 +1,4 @@
-import { Status } from 'https://deno.land/x/oak/mod.ts';
+import { Status } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
 
 import bodyParser from '../../utilities/body-parser.ts';
 import { ChangeEmailData, Context } from './types.ts';
@@ -17,9 +17,9 @@ import sanitize from '../../utilities/sanitize.ts';
 /**
  * Send a link to change user email address
  * @param {Context} ctx - context
- * @returns {Promise<void>}
+ * @returns {Promise<any>}
  */
-export default async function (ctx: Context): Promise<void> {
+export default async function (ctx: Context): Promise<any> {
   try {
     // check data
     const { newEmail = '' }: ChangeEmailData = await bodyParser(ctx, ['newEmail']);

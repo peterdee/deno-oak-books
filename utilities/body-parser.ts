@@ -1,4 +1,4 @@
-import { RouterContext } from 'https://deno.land/x/oak/mod.ts';
+import { RouterContext } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
 
 const decoder = new TextDecoder();
 

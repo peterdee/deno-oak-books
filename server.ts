@@ -1,4 +1,4 @@
-import * as oak from 'https://deno.land/x/oak/mod.ts';
+import * as oak from 'https://deno.land/x/oak@v5.3.1/mod.ts';
 import { oakCors } from 'https://deno.land/x/cors/mod.ts';
 import { Snelm } from 'https://deno.land/x/snelm/mod.ts';
 

@@ -1,4 +1,4 @@
-import { RouterContext, Status } from 'https://deno.land/x/oak/mod.ts';
+import { RouterContext, Status } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
 
 import bodyParser from '../../utilities/body-parser.ts';
 import database, { collections, generateId } from '../../database/index.ts';
@@ -11,9 +11,9 @@ import tmdb from '../../utilities/tmdb.ts';
 /**
  * Search movies by name
  * @param {RouterContext} ctx - context
- * @returns {Promise<void>}
+ * @returns {Promise<any>}
  */
-export default async function (ctx: RouterContext): Promise<void> {
+export default async function (ctx: RouterContext): Promise<any> {
   try {
     const raw = await tmdb.search('dragons');
     const data = await raw.json();
