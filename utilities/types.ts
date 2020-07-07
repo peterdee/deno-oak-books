@@ -4,6 +4,15 @@ export interface Context extends RouterContext {
   id?: string;
 };
 
+export interface QueryParams {
+  limit?: number|string;
+  page?: number|string;
+};
+
+export interface Pagination extends QueryParams {
+  offset?: number;
+};
+
 export interface Response {
   data?: any;
   datetime: number;

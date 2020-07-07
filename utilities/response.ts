@@ -6,6 +6,8 @@ import mailer from './mailer.ts';
 import { Context, Response } from './types.ts';
 import { MAILER_FROM, SEND_ERROR_MESSAGES, SERVER_MESSAGES } from '../config/index.ts';
 
+export { Response };
+
 /**
  * Send response to the frontend
  * @param {Context|RouterContext} ctx - context

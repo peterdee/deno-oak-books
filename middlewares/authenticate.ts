@@ -5,8 +5,7 @@ import database, {
   collections,
   User as UserInterface,
 } from '../database/index.ts';
-import response from '../utilities/response.ts';
-import { Response } from '../utilities/types.ts';
+import response, { Response } from '../utilities/response.ts';
 import { SERVER_MESSAGES, TOKENS } from '../config/index.ts';
 
 const expired = 'EXPIRED';
