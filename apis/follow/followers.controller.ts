@@ -7,23 +7,19 @@ import database, {
   generateId,
   User,
 } from '../../database/index.ts';
-import response from '../../utilities/response.ts';
+import paginate, { Pagination } from '../../utilities/paginate.ts';
+import response, { Response } from '../../utilities/response.ts';
 import { SERVER_MESSAGES } from '../../config/index.ts';
 
 /**
  * Get user's followers list
  * @param {Context} ctx - context
- * @returns {Promise<any>}
+ * @returns {Promise<Response|*>}
  */
-export default async function (ctx: Context): Promise<any> {
+export default async function (ctx: Context): Promise<Response|any> {
   try {
-    // check data
-    const { params: { id = '' } = {} } = ctx;
-    if (!id) {
-      return response(ctx, Status.BadRequest, SERVER_MESSAGES.missingData);
-    }
+    const { limit, offset, page }: Pagination = paginate(ctx);
 
-    // TODO
 
     return response(ctx, Status.OK, SERVER_MESSAGES.ok);
   } catch (error) {
