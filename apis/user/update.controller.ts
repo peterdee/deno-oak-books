@@ -1,4 +1,4 @@
-import { Status } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
+import { Status } from 'https://deno.land/x/oak/mod.ts';
 
 import bodyParser from '../../utilities/body-parser.ts';
 import database, { collections } from '../../database/index.ts';

@@ -1,5 +1,5 @@
 import { compare, hash } from 'https://deno.land/x/bcrypt/mod.ts';
-import { Status } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
+import { Status } from 'https://deno.land/x/oak/mod.ts';
 
 import bodyParser from '../../utilities/body-parser.ts';
 import { Context, PasswordData } from './types.ts';

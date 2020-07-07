@@ -1,4 +1,4 @@
-import { Status } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
+import { Status } from 'https://deno.land/x/oak/mod.ts';
 import { validateJwt } from 'https://deno.land/x/djwt/validate.ts';
 
 import database, {
@@ -6,6 +6,7 @@ import database, {
   User as UserInterface,
 } from '../database/index.ts';
 import response from '../utilities/response.ts';
+import { Response } from '../utilities/types.ts';
 import { SERVER_MESSAGES, TOKENS } from '../config/index.ts';
 
 const expired = 'EXPIRED';
@@ -13,11 +14,11 @@ const invalid = 'INVALID';
 
 /**
  * Authenticate the user
- * @param {RouterContext} ctx - context
+ * @param {Context|RouterContext} ctx - context
  * @param {*} next - call the next middleware
- * @returns {Promise<*>}
+ * @returns {Promise<Response>}
  */
-export default async function (ctx: any, next: any): Promise<any> {
+export default async function (ctx: any, next: any): Promise<Response|any> {
   try {
     // check the token
     const token = ctx.request.headers.get('X-Access-Token') || '';

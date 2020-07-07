@@ -1,8 +1,9 @@
-import * as oak from 'https://deno.land/x/oak@v5.3.1/mod.ts';
+import * as oak from 'https://deno.land/x/oak/mod.ts';
 import { oakCors } from 'https://deno.land/x/cors/mod.ts';
 import { Snelm } from 'https://deno.land/x/snelm/mod.ts';
 
 import { ENV, ENVS, PORT as port } from './config/index.ts';
+import favicon from './middlewares/favicon.ts';
 import log from './utilities/log.ts';
 import logger from './middlewares/logger.ts';
 import responseTime from './middlewares/response-time.ts';
@@ -22,7 +23,6 @@ import user from './apis/user/index.ts';
 const app = new oak.Application();
 
 const snelm = new Snelm('oak');
-await snelm.init();
 
 // middlewares
 app.use(oakCors());
@@ -32,6 +32,7 @@ app.use((ctx: oak.Context, next) => {
 });
 app.use(logger);
 app.use(responseTime);
+app.use(favicon);
 
 // routing
 app.use(changeEmail.routes());

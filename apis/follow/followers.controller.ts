@@ -1,4 +1,4 @@
-import { Status } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
+import { Status } from 'https://deno.land/x/oak/mod.ts';
 
 import { Context } from './types.ts';
 import database, {
