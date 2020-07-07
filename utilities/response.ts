@@ -1,4 +1,4 @@
-import { RouterContext, Status } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
+import { RouterContext, Status } from 'https://deno.land/x/oak/mod.ts';
 
 import { internalServerError } from './templates.ts';
 import log from './log.ts';
@@ -13,7 +13,7 @@ import { MAILER_FROM, SEND_ERROR_MESSAGES, SERVER_MESSAGES } from '../config/ind
  * @param {string} info - response info
  * @param {*} data - data object (optional)
  * @param {string} misc - additional information (optional)
- * @returns {*} 
+ * @returns {Response} 
  */
 export default function (
   ctx: Context|RouterContext,
@@ -21,7 +21,7 @@ export default function (
   info: string = SERVER_MESSAGES.ok,
   data: any = null,
   misc: string = SERVER_MESSAGES.noAdditionalInformation,
-) {
+): Response {
   // create the response
   const response: Response = {
     datetime: Date.now(),
@@ -45,5 +45,5 @@ export default function (
   // send response
   ctx.response.status = status;
   ctx.response.body = response;
-  return ctx.response.body;
+  return response;
 };

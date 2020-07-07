@@ -1,4 +1,4 @@
-import { Router } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
+import { Router } from 'https://deno.land/x/oak/mod.ts';
 
 import authenticate from '../../middlewares/authenticate.ts';
 import follow from './follow.controller.ts';

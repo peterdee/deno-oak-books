@@ -1,4 +1,4 @@
-import { RouterContext } from 'https://deno.land/x/oak@v5.3.1/mod.ts';
+import { RouterContext } from 'https://deno.land/x/oak/mod.ts';
 
 import response from '../../utilities/response.ts';
 
@@ -7,6 +7,6 @@ import response from '../../utilities/response.ts';
  * @param {RouterContext} ctx - Oak Context
  * @returns {void}
  */
-export default function (ctx: RouterContext) {
+export default async function (ctx: RouterContext): Promise<any> {
   return response(ctx);
 };
