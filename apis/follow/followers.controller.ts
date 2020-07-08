@@ -18,8 +18,37 @@ import { SERVER_MESSAGES } from '../../config/index.ts';
  */
 export default async function (ctx: Context): Promise<Response|any> {
   try {
+    // get pagination data
     const { limit, offset, page }: Pagination = paginate(ctx);
 
+    // get Followers
+    const Follower = database.collection(collections.Follower);
+    const records = await Follower.aggregate([
+      { 
+        $match: {
+          followedId: ctx.id,
+        },
+      },
+      {
+        $lookup: {
+          from: collections.User,
+          localField: 'userId',
+          foreignField: 'id',
+          as: 'user',
+        },
+      },
+      {
+        $unwind: {
+          path: '$user',
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $project: {
+          // TODO: fields to get
+        },
+      },
+    ]);
 
     return response(ctx, Status.OK, SERVER_MESSAGES.ok);
   } catch (error) {
