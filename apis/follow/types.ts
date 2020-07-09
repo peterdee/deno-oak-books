@@ -9,3 +9,10 @@ export interface Context extends RouterContext {
 export interface FollowData {
   id?: string;
 };
+
+export interface FollowerData {
+  email: string;
+  firstName: string;
+  id: string;
+  lastName: string;
+};

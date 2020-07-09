@@ -23,31 +23,31 @@ import log from '../utilities/log.ts';
     }
 
     // create the Admin record
-    const now = Date.now();
+    const now = `${Date.now()}`;
     const userId = generateId();
     const [hashed] = await Promise.all([
       hash(ADMIN.password),
       User.insertOne({
         id: userId,
         accountType: ACCOUNT_TYPES.admin,
-        created: `${now}`,
+        created: now,
         email: ADMIN.email,
         entity: collections.User,
         firstName: ADMIN.firstName,
         fullName: `${ADMIN.firstName} ${ADMIN.lastName}`,
         lastName: ADMIN.lastName,
-        updated: `${now}`,
+        updated: now,
       }),
     ]);
 
     // create the Password record
     await database.collection(collections.Password).insertOne({
-      created: `${now}`,
+      created: now,
       entity: collections.Password,
       hash: hashed,
       id: generateId(),
       recoveryCode: null,
-      updated: `${now}`,
+      updated: now,
       userId,
     });
 

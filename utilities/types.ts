@@ -4,6 +4,12 @@ export interface Context extends RouterContext {
   id?: string;
 };
 
+export interface FormattedPagination {
+  currentPage: number;
+  limit: number;
+  totalPages: number;
+};
+
 export interface QueryParams {
   limit?: number|string;
   page?: number|string;
