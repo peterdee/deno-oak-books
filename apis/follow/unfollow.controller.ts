@@ -2,15 +2,15 @@ import { Status } from 'https://deno.land/x/oak/mod.ts';
 
 import { Context } from './types.ts';
 import database, { collections } from '../../database/index.ts';
-import response from '../../utilities/response.ts';
+import response, { Response } from '../../utilities/response.ts';
 import { SERVER_MESSAGES } from '../../config/index.ts';
 
 /**
  * Unfollow user
  * @param {Context} ctx - context
- * @returns {Promise<any>}
+ * @returns {Promise<Response|*>}
  */
-export default async function (ctx: Context): Promise<any> {
+export default async function (ctx: Context): Promise<Response|any> {
   try {
     // check data
     const { params: { id = '' } = {} } = ctx;

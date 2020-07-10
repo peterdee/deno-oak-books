@@ -1,31 +1,77 @@
 import { Status } from 'https://deno.land/x/oak/mod.ts';
 
-import { Context } from './types.ts';
-import database, {
-  collections,
-  Follower,
-  generateId,
-  User,
-} from '../../database/index.ts';
-import response from '../../utilities/response.ts';
+import { Context, FollowerData } from './types.ts';
+import database, { collections } from '../../database/index.ts';
+import formatPagination from '../../utilities/format-pagination.ts';
+import paginate, { Pagination } from '../../utilities/paginate.ts';
+import response, { Response } from '../../utilities/response.ts';
 import { SERVER_MESSAGES } from '../../config/index.ts';
 
 /**
- * Get a list of whom the user is following
+ * Get followed list
  * @param {Context} ctx - context
- * @returns {Promise<any>}
+ * @returns {Promise<Response|*>}
  */
-export default async function (ctx: Context): Promise<any> {
+export default async function (ctx: Context): Promise<Response|any> {
   try {
-    // check data
-    const { params: { id = '' } = {} } = ctx;
-    if (!id) {
-      return response(ctx, Status.BadRequest, SERVER_MESSAGES.missingData);
-    }
+    // get pagination data
+    const { limit, offset, page }: Pagination = paginate(ctx);
 
-    // TODO
+    // get Followers
+    const Follower = database.collection(collections.Follower);
+    const [results, total]: [FollowerData[], number] = await Promise.all([
+      Follower.aggregate([
+        { 
+          $match: {
+            userId: ctx.id,
+          },
+        },
+        {
+          $sort: {
+            created: -1,
+          },
+        },
+        {
+          $skip: offset,
+        },
+        {
+          $limit: limit,
+        },
+        {
+          $lookup: {
+            from: collections.User,
+            localField: 'followedId',
+            foreignField: 'id',
+            as: 'user',
+          },
+        },
+        {
+          $unwind: {
+            path: '$user',
+            preserveNullAndEmptyArrays: true,
+          },
+        },
+        {
+          $project: {
+            email: '$user.email',
+            firstName: '$user.firstName',
+            id: '$user.id',
+            lastName: '$user.lastName',
+          },
+        },
+      ]),
+      Follower.count({ userId: ctx.id }),
+    ]);
 
-    return response(ctx, Status.OK, SERVER_MESSAGES.ok);
+    return response(
+      ctx,
+      Status.OK,
+      SERVER_MESSAGES.ok,
+      {
+        pagination: formatPagination(Number(limit), Number(page), total),
+        results,
+      },
+    );
   } catch (error) {
     return response(
       ctx,
