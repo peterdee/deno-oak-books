@@ -7,15 +7,15 @@ import database, {
   generateId,
   User,
 } from '../../database/index.ts';
-import response from '../../utilities/response.ts';
+import response, { Response } from '../../utilities/response.ts';
 import { SERVER_MESSAGES } from '../../config/index.ts';
 
 /**
  * Follow user
  * @param {Context} ctx - context
- * @returns {Promise<any>}
+ * @returns {Promise<Response|*>}
  */
-export default async function (ctx: Context): Promise<any> {
+export default async function (ctx: Context): Promise<Response|any> {
   try {
     // check data
     const { params: { id = '' } = {} } = ctx;
