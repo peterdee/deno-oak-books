@@ -67,6 +67,7 @@ export const SERVER_MESSAGES = {
   missingData: 'MISSING_DATA',
   missingRefreshToken: 'MISSING_REFRESH_TOKEN',
   missingToken: 'MISSING_TOKEN',
+  movieNotFound: 'MOVIE_NOT_FOUND',
   noAdditionalInformation: 'NO_ADDITIONAL_INFORMATION',
   notFound: 'NOT_FOUND',
   ok: 'OK',
