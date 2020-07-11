@@ -11,6 +11,20 @@ class TMDB {
   }
 
   /**
+   * Get movie details
+   * @param {number|string} id - movie ID
+   * @returns {Promise<Response>} 
+   */
+  movie(id: number|string): Promise<Response> {
+    return fetch(
+      `${this.ORIGIN}/movie/${id}?api_key=${this.KEY}&language=${this.LANGUAGE}`,
+      {
+		    method: 'GET',
+      },
+    );
+  } 
+
+  /**
    * Search movies
    * @param {string} query - search request 
    * @param {number|string} page - pagination
